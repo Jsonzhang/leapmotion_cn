@@ -133,23 +133,26 @@ Tools — 指向性的工具比如木棒.
 
 ####Finger and Tool models
 
-The Leap detects and tracks both fingers and tools within its field of view. The Leap classifies finger-like objects according to shape. A tool is longer, thinner, and straighter than a finger.
+无论是手指还是工具,只要在检测范围内Leap程序都会检测和跟踪其运动轨迹.而且Leap会根据形状将类似手指的东西分类出来.工具相对于手指来说更加长,细和直.
 
-In the Leap model, the physical characteristics of fingers and tools are abstracted into a Pointable object. Fingers and tools are types of pointable objects. The physical characteristics of pointable objects include:
+![Leap 的fsa卡尔坐标系统](https://developer.leapmotion.com/documentation/Common/images/Leap_Tool.png)
 
-length — The length of the visible portion of the object (from where it extends out of the hand to the tip).
-width — The average width of the visible portion of the object.
-direction — A unit direction vector pointing in the same direction as the object (i.e. from base to tip).
-tipPosition — The position of the tip in millimeters from the Leap origin.
-tipVelocity — The speed of the tip in millimeters per second.
+在 Leap 程序模型里, 手指和工具的物理特征就是一个指向性的对象. 手指和工具都是可以用来"指向"的东西,这类可以指向的东西包括的属性如下:
+
++ length — 对象的可见部分的长度.
++ width — The average width of the visible portion of the object.
++ direction — A unit direction vector pointing in the same direction as the object (i.e. from base to tip).
++ tipPosition — The position of the tip in millimeters from the Leap origin.
++ tipVelocity — The speed of the tip in millimeters per second.
 
 ![Leap 的fsa卡尔坐标系统](https://developer.leapmotion.com/documentation/Common/images/Leap_Finger_Model.png)
+
 Finger tipPosition and direction vectors provide the positions of the finger tips and the directions in which the fingers are pointing.
 
 The Leap classifies a detected pointable object as either a finger or a tool. Use the Pointable.tool property to determine which one a Pointable object represents.
-![Leap 的fsa卡尔坐标系统](https://developer.leapmotion.com/documentation/Common/images/Leap_Tool.png)
 
-A tool is longer, thinner, and straighter than a finger.
+
+
 
 Gestures
 
@@ -203,6 +206,5 @@ The Leap recognizes a quick, forward tapping movement by a finger or tool as a S
 
 上图是点击(Tap)动作的触发方式.
 
-You can make a key tap gesture by tapping or pushing foward in space as if touching a vertical touch screen. Tap gestures are discrete. Only a single Gesture object is added per tap gesture.
-
-See ScreenTapGesture in the API reference for more information.
+只要你朝检测范围内与屏幕垂直的方向突然向屏幕方向移动你的手指就会触发一次按键点击.而点击手势是不连续的,就是说多次点击触发的事件是相互独立的,每次都会独立生成一个点击对象可供程序操作.
+如果想知道更多以及具体使用方法可以看 API 文档中有关于屏幕点击的信息.
