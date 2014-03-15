@@ -44,30 +44,42 @@
 
 ##亲近高亮法
 
-另一种可以简化你的菜单设计的方法是你对菜单提供一种基于亲近而选择高亮的主题.这样做可以让离指针最近的菜单选项高亮,而不用必须将指针保持在选项上.在下面这个例子中
-In the example below, the five possible actions are outlined to show how this might work. The user’s cursor is in the upper left quadrant so therefore the Play button is lit. Performing a tap gesture would activate the Play button. Anticipating what the user might want in these contexts can save time and eliminate frustration.
+另一种可以简化你的菜单设计的方法是你对菜单提供一种基于亲近而选择高亮的主题.这样做可以让离指针最近的菜单选项高亮,而不用必须将指针保持在选项上.在下面这个例子中,五个选项都被用外框线标明如何选择并使他们工作,当前用户的指针在左上角,所以左上角的选项亮了,这时候只需要执行点击手势play按钮就会被触发,这种预测行为的办法可以降低用户的学习成本和挫败感.
 
-![](https://developer.leapmotion.com/documentation/images/Menus_Zones.jpg)
+![Example of Proximity-Based Highlighting Scheme](https://developer.leapmotion.com/documentation/images/Menus_Zones.jpg)
 
-Example of Proximity-Based Highlighting Scheme
+结合布局和邻近强调可能导致一些易于使用,更不用说好看,跳跃运动启用菜单。这里有一些例子使用基于径向和网格菜单发电机我们提供帮助您理解这些概念并与之进行交互。这些例子是使用tap-zone API(z轴戳)激活方法。此外包括清晰的视觉反馈当高亮显示和选择每个单元以及音频反馈您导航从细胞到细胞和细胞的选择。注意改变光标状态作为您翻译z轴,显示你离“龙头”。
 Combining layout and proximity highlighting can result in some easy to use, not to mention great looking, Leap Motion enabled menus. Here are some examples using a radial and grid based menu generator we’ve provided to help you understand and interact with these concepts. These examples are using the tap-zone API (z-axis poke) for the activation method. Additionally they include clear visual feedback when highlighting and selecting each cell as well as audio feedback as you navigate from cell to cell and upon cell selection. Note the change in the cursor state as you translate the z-axis, showing your proximity to the “tap”.
 
-##Radial Menus
+##放射性菜单
 The following radial menus show how you can navigate a number of items quickly and accurately by arranging their layout in a ring or pie. The movement required to target one of the cells is extremely slight which reduces the amount of latency and physical strain. The menus with a central cell could use that area for the most important item in the menu or as a “neutral zone”.
 
-You can find the live code example here.
+你可以在[这个地方](http://goo.gl/ZKoTp7)找到源代码.
+
+![5 Cell Radial Menu with Center Target	 ](https://developer.leapmotion.com/documentation/images/Radial_002.png)
+
+5 Cell Radial Menu with Center Target
+
+![6 Cell Symmetrical Radial Menu](https://developer.leapmotion.com/documentation/images/Radial_005.png)
+
+6 Cell Symmetrical Radial Menu
+
+![7 Cell Radial Menu with Center Target	](https://developer.leapmotion.com/documentation/images/Radial_006.png)
+
+7 Cell Radial Menu with Center Target
+
+![4 Cell Symmetrical Radial Menu with 2 Columns](https://developer.leapmotion.com/documentation/images/Radial_008.png)
+
+4 Cell Symmetrical Radial Menu with 2 Columns
 
  
-5 Cell Radial Menu with Center Target	 
-6 Cell Symmetrical Radial Menu
  
-7 Cell Radial Menu with Center Target	 
-4 Cell Symmetrical Radial Menu with 2 Columns
-Grid Menus
+
+##Grid Menus
+
 Similar to the radial menus, these grid based menus provide a simple method of accessing items with a minimum of effort, but using a column/row/grid based layout.
 
-You can find the live code example here.
-
+你可以在[这个地方](http://goo.gl/6seQ29)找到源代码.
  
 6 Cell Symmetrical Row Menu	 
 6 Cell Symmetrical Column Menu
