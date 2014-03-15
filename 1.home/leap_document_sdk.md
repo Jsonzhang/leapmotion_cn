@@ -6,7 +6,7 @@
 
 + [API Overview](../leap_document_API_Overview.md)
 + System Architecture
-+ Setting Up a Project
++ Setting Up a Project 
 
 And for the fastest possible introduction to the Leap Motion API, here’s the essential:
 

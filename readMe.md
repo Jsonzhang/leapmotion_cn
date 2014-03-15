@@ -140,8 +140,8 @@ Tools — 指向性的工具比如木棒.
 在 Leap 程序模型里, 手指和工具的物理特征就是一个指向性的对象. 手指和工具都是可以用来"指向"的东西,这类可以指向的东西包括的属性如下:
 
 + length — 对象的可见部分的长度.
-+ width — The average width of the visible portion of the object.
-+ direction — A unit direction vector pointing in the same direction as the object (i.e. from base to tip).
++ width —  对象的可见部分的宽度.
++ direction — 一个单位矢量方向指向相同的方向对象(即以leap坐标系原点为起点).
 + tipPosition — The position of the tip in millimeters from the Leap origin.
 + tipVelocity — The speed of the tip in millimeters per second.
 
@@ -170,22 +170,23 @@ When the Leap first classifies a movement pattern as a gesture, it adds a Gestur
 Important: before using gestures in your application, you must enable recognition for each gesture you intend to use. The Controller class has an enableGesture() method that you can use to enable recognition for the types of gestures you use.
 
 ###画圈圈
-The Leap recognizes the motion of a finger tracing a circle in space as a Circle gesture.
-![Leap 的fsa卡尔坐标系统](https://developer.leapmotion.com/documentation/Common/images/Leap_Gesture_Circle.png)
 
-A circle gesture with the forefinger.
+Leap程序能识别出手指在空中画圈圈的动作
 
-You can make a circle with any finger or tool. Circle gestures are continuous. Once the gesture starts, the Leap will update the progress until the gesture ends. A circle gesture ends when the circling finger or tool departs from the circle locus or moves too slow.
+![A circle gesture with the forefinger](https://developer.leapmotion.com/documentation/Common/images/Leap_Gesture_Circle.png)
 
-See CircleGesture in the API reference for more information.
+你可以用工具或者手指画一个圈圈.圆圈手势是可以连续画多次圈圈的,一旦你开始用手指画圈圈,leap程序就会开始记录,知道你结束这个动作,而这个画圈圈动作结束的标志是你的手指或者工具原理这个圈圈,或者移动速度太慢.
+
+可以看API文档中的 `CircleGesture` 来获取有关该手势的更多信息.
 
 ###滑动
-The Leap recognizes a linear movement of a finger as a Swipe gesture.
-![Leap 的fsa卡尔坐标系统](https://developer.leapmotion.com/documentation/Common/images/Leap_Gesture_Swipe.png)
-A horizontal swipe gesture.
+
+Leap程序能从手指的线性运动中识别出滑动手势.
+
+![A horizontal swipe gesture.](https://developer.leapmotion.com/documentation/Common/images/Leap_Gesture_Swipe.png)
+
 
 你可以在任何方向上做一个滑动的手势,滑动手势是连续的,一旦手势开始,Leap在手势结束之前会一直更新进程.当手指改变了方向或者是移动得很缓慢,Leap就会认为滑动手势结束了.
-
 
 
 ###点击
@@ -194,17 +195,17 @@ Leap可以认出两种不同的点击: 向下的按键点击和向前的屏幕�
 
 ####按键点击
 
-The Leap 可以检测出某个手指或者工具快速向下的点击动作,并且认为这个动作就是一个按键点击动作.
+Leap程序可以检测出某个手指或者工具快速向下的点击动作,并且认为这个动作就是一个按键点击动作.
+
 ![A key tap gesture with the forefinger.](https://developer.leapmotion.com/documentation/Common/images/Leap_Gesture_Tap.png)
 
 如果你在模拟钢琴按键的敲击那么你可以使用按键点击手势,这种点击手势之间是独立的,只有一个简单的手势对象会被添加到每个点击手势里.
 
 ####屏幕点击
 
-The Leap recognizes a quick, forward tapping movement by a finger or tool as a Screen Tap gesture.
-![Leap 的fsa卡尔坐标系统](https://developer.leapmotion.com/documentation/Common/images/Leap_Gesture_Tap2.png)
+Leap程序可以检测出某个手指或者工具快速向前的点击动作,并且认为这个动作就是一个屏幕点击动作.
 
-上图是点击(Tap)动作的触发方式.
+![上图是点击(Tap)动作的触发方式.](https://developer.leapmotion.com/documentation/Common/images/Leap_Gesture_Tap2.png)
 
 只要你朝检测范围内与屏幕垂直的方向突然向屏幕方向移动你的手指就会触发一次按键点击.而点击手势是不连续的,就是说多次点击触发的事件是相互独立的,每次都会独立生成一个点击对象可供程序操作.
 如果想知道更多以及具体使用方法可以看 API 文档中有关于屏幕点击的信息.

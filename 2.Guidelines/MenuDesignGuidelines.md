@@ -1,32 +1,58 @@
-#Menu Design Guidelines
-
-可以让用户更加直接地选择和操作  无论是某个特定的菜单或者只是在一个经验——开发深度应用程序是一个极其重要的组成部分,确保最终用户控制。更重要的是,很多时候这些是第一个互动的人将会与您的软件。如果用户最初的经验基本菜单选择是混乱,令人沮丧或费力,他们可能会放弃之前的经验使您的应用程序的核心。显然这是值得花一些时间来得到这个权利!
-Presenting users with intuitive options and controls – whether in the form of dedicated menus or simply throughout an experience – is an incredibly important component of developing deep applications and ensuring users ultimately feel in control. What’s more, many times these are the first interactions someone will have with your software. If a user’s initial experience with basic menu selection is confusing, frustrating or laborious, they might give up on the experience even before getting to the heart of your application. Clearly it’s worth spending some time to get this right!
+#菜单设计指南
 
 
 
-Yet while some existing best practices can be easily applied to Leap Motion-enabled apps, there’s no reason to think that what works best in current desktop or mobile menus will be immediately transferable to three dimensional interactions. In working through some of these issues ourselves and seeing solutions from developer community we’ve established a few guidelines to consider when implementing menus and settings into your app experiences.
+无论从菜单的易用性上还是只是整个程序的使用体验来说,向用户提供更直观的控制方式确保最终用户简单地进行控制,这对于开发完善的程序来说是极其重要的。
 
-Menu Interactions
-Interacting with a menu are actions that are often repeated and likely to be gating factors to other functionality – so clearly they need to feel natural, be incredibly reliable and not require too much of the user in learning a new or complicated sign language. To avoid user frustration, it is always better to err on the side of basic yet stable approaches while continuing to refine more innovative ones.
+更需要注意的是,很多时候这些人是第一次与你的软件进行互动,如果连在菜单上的简单交互体验都觉得非常混乱和费力,他们很可能就会开始不喜欢你的软件,甚至不会再使用你的软件了.
+所以菜单设计方面显然需要花更多的心思来做得更好!
 
-Menu Design and Layout
-However you organize your menu to accommodate your experience and artwork, keep the usability, legibility and simplicity of interaction in mind. Be sure to space the buttons appropriately so that its easy for a user to select and tap a particular button without accidentally mis-tapping another.
+尽管到目前为止很多已有的最佳实践可以应用到leap motion apps的开发上, 但是这仍然没有让我们认为现在已经可以把桌面和移动菜单的交互转移到三维上,使用leapmotion来进行所有的交互.
 
-image0
-In this example menu you can see a number of best practices at work.
-Buttons are large, well organized and include a clear highlight/depressed state
-Buttons use high contrast colors and the text/font are very legible
-The Exit button is easily accessible and clearly indicated
-Required gestures are displayed using easy to read iconography. The recommended gesture for menus is the touch-zone or “poke”.
-Proximity-Based Highlighting
-Another way of simplifying the menu experience for your users is to provide a proximity-based highlighting scheme. This would highlight the closest item to the user’s cursor, without having to actually be over it. In the example below, the five possible actions are outlined to show how this might work. The user’s cursor is in the upper left quadrant so therefore the Play button is lit. Performing a tap gesture would activate the Play button. Anticipating what the user might want in these contexts can save time and eliminate frustration.
+所以当你在设计实现你的程序菜单时如果遇到交互问题,可以参考我们在开发者社区中建立的一些指南来增强您的应用程序的体验。
 
-image1
+
+##菜单交互
+
+
+使用菜单这个行为会在我们的应用程序中经常被重复,因为这是可能是所有功能连结的中介.因此菜单的交互需要让用户感觉更加自然和可靠,不需要让大多数用户为了操作去学习复杂的手势。为了避免用户使用菜单时出现沮丧情绪,宁可用最基础可靠的方法也不要用太过新颖独特的创意.
+
+
+##菜单设计和布局
+
+
+
+
+无论如何,您必须让你的菜单保持可用性、易读性和简单性的交互来适应你的作品.在不同的按钮中间必须留有空隙方便用户选择而不会很容易就错误点击到另一个.
+
+![](https://developer.leapmotion.com/documentation/images/menu_left_align_withInfo.jpg)
+
+在这个示例菜单中你可以看到工作中的最佳实践应该是什么样子的.
+
+
+
+
+1. 应该保持按钮足够大,易于辨认而且有一个高亮/被点击的状态
+2. 高亮的按钮可以使用对比(反向)颜色使得按钮中的文字更加清晰易读.
+3. exit按钮在菜单界面中应该特别容易被找到.
+4. 如果菜单使用了手势,那么这个手势必须非常简单,推荐是在区域中设置简单的敲击.
+
+
+
+
+
+
+##亲近高亮法
+
+另一种可以简化你的菜单设计的方法是你对菜单提供一种基于亲近而选择高亮的主题.这样做可以让离指针最近的菜单选项高亮,而不用必须将指针保持在选项上.在下面这个例子中
+In the example below, the five possible actions are outlined to show how this might work. The user’s cursor is in the upper left quadrant so therefore the Play button is lit. Performing a tap gesture would activate the Play button. Anticipating what the user might want in these contexts can save time and eliminate frustration.
+
+![](https://developer.leapmotion.com/documentation/images/Menus_Zones.jpg)
+
 Example of Proximity-Based Highlighting Scheme
 Combining layout and proximity highlighting can result in some easy to use, not to mention great looking, Leap Motion enabled menus. Here are some examples using a radial and grid based menu generator we’ve provided to help you understand and interact with these concepts. These examples are using the tap-zone API (z-axis poke) for the activation method. Additionally they include clear visual feedback when highlighting and selecting each cell as well as audio feedback as you navigate from cell to cell and upon cell selection. Note the change in the cursor state as you translate the z-axis, showing your proximity to the “tap”.
 
-Radial Menus
+##Radial Menus
 The following radial menus show how you can navigate a number of items quickly and accurately by arranging their layout in a ring or pie. The movement required to target one of the cells is extremely slight which reduces the amount of latency and physical strain. The menus with a central cell could use that area for the most important item in the menu or as a “neutral zone”.
 
 You can find the live code example here.
