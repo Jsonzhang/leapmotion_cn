@@ -48,10 +48,10 @@
 
 ![Example of Proximity-Based Highlighting Scheme](https://developer.leapmotion.com/documentation/images/Menus_Zones.jpg)
 
-结合布局和邻近强调可能导致一些易于使用,更不用说好看,跳跃运动启用菜单。这里有一些例子使用基于径向和网格菜单发电机我们提供帮助您理解这些概念并与之进行交互。这些例子是使用tap-zone API(z轴戳)激活方法。此外包括清晰的视觉反馈当高亮显示和选择每个单元以及音频反馈您导航从细胞到细胞和细胞的选择。注意改变光标状态作为您翻译z轴,显示你离“龙头”。
-Combining layout and proximity highlighting can result in some easy to use, not to mention great looking, Leap Motion enabled menus. Here are some examples using a radial and grid based menu generator we’ve provided to help you understand and interact with these concepts. These examples are using the tap-zone API (z-axis poke) for the activation method. Additionally they include clear visual feedback when highlighting and selecting each cell as well as audio feedback as you navigate from cell to cell and upon cell selection. Note the change in the cursor state as you translate the z-axis, showing your proximity to the “tap”.
+把菜单布局和亲近高亮原则结合起来就能做出易于使用的菜单,但是通常来说这并不能做出好看并且易于让leap程序来使用的菜单.以下这些例子使用放射状或者网格状的菜单,希望能加深您对菜单交互这个课题的理解.这些例子使用点击(z轴)来作为激活交互方案.除此之外他们也包括了当每一个选项被选中时清晰的高亮反馈,当你在不同选项之间选择的时候会伴随着音效的提醒.最后用光标的变化来表示手指在z轴上的变化,让用户知道自己正在点击这个选项.
 
 ##放射性菜单
+一下
 The following radial menus show how you can navigate a number of items quickly and accurately by arranging their layout in a ring or pie. The movement required to target one of the cells is extremely slight which reduces the amount of latency and physical strain. The menus with a central cell could use that area for the most important item in the menu or as a “neutral zone”.
 
 你可以在[这个地方](http://goo.gl/ZKoTp7)找到源代码.
@@ -75,35 +75,67 @@ The following radial menus show how you can navigate a number of items quickly a
  
  
 
-##Grid Menus
+##栅格菜单
 
 Similar to the radial menus, these grid based menus provide a simple method of accessing items with a minimum of effort, but using a column/row/grid based layout.
 
 你可以在[这个地方](http://goo.gl/6seQ29)找到源代码.
- 
+
+![](https://developer.leapmotion.com/documentation/images/Grid001.png)
 6 Cell Symmetrical Row Menu	 
+
+![](https://developer.leapmotion.com/documentation/images/Grid002.png)
 6 Cell Symmetrical Column Menu
- 
-9 Cell Symmetrical Grid Menu	 
+
+![](https://developer.leapmotion.com/documentation/images/Grid003.png)
+9 Cell Symmetrical Grid Menu
+
+![](https://developer.leapmotion.com/documentation/images/Grid005.png)
 5 Cell Row Menu with Right Zone
-Menu Access and Exit
-With this in mind, accessing these menus as well as exiting your application should be handled in the same, simple and foolproof manner.
 
-For most games and applications, removing your hands from the field of view should pause the interaction and display a “Continue, Main Menu, Quit” dialog
-Providing an explicit “Settings” or “Menu” button is another option
-There should be an explicit “Exit” or “Quit” button
-The Escape key should exit the app (on Mac and Windows)
-The Command-Q (Mac) or Alt-F4 (Window) should also exit
-May want to also make your menus accessible via mouse as well
-image18
-The first-person shooter, Dead Motion Prologue, displays this menu when a user removes their hands from the field of view.
-Feedback. Feedback. Feedback.
-For any selection approach you utilize, giving users proper cues and feedback is integral to ensuring they feel in complete control. It should first be immediately clear what elements are interactive – and it never hurts to give users unobtrusive graphical or textual cues, e.g. a simple illustration and “Tap to select an article.”
 
-Once interacting with the element, it should respond fluidly with appropriate visual and auditory feedback. Buttons should be highlighted when hovered over and should respond with a “click” and indent as they are depressed; sliders should move freely; etc. The more information you can give to help orient the user and signal their selections, the easier it will be for them to complete each task.
 
-image19
-Frog Dissection uses large buttons that highlight and magnify when indicated and a simple z-axis poke gesture to tap/select.
-image20
-Sky Muffins uses buttons that “fill up” as you push forward on the z-axis. Filling the button selects it. This can be done quickly based on the speed of your push.
-As recommended previously, these two applications use the Leap Motion Touch Zone API to handle the button “tap”. For more on the implementation of this API, please review this section of our documentation and this excellent blog post from one of our developers on how to implement touch zones.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##菜单的进入和退出
+
+有鉴于此,应该用简单易用的方式来设置访问菜单及退出应用程序的方法.
+
+ + 对于很多游戏和应用来说, 当用户把手从检测范围内离开的时候,应该显示一个类似“Continue, Main Menu, Quit” 的对话框.
+ + 在菜单上,"返回"按钮,"设置"按钮应该做得很显眼
+ + “Exit” 或者 “Quit” 之类的离开按钮同样应该做得显眼
+ + 离开按钮应该是彻底关闭程序,而不应该是返回菜单或者其他什么功能
+ + Mac上的`Command-Q` 或者 Windows上的`Alt-F4` 也要能起到 exit(退出) 的功能
+ + 同时要保持你的菜单对于鼠标来说也是可以访问的
+
+![](https://developer.leapmotion.com/documentation/images/DeadMotion.jpg)
+
+第一人称射击游戏中,当用户从检测范围移开手的时候,应该像上图一样把所有运动和游戏参数暂停.
+
+##反馈,反馈,反馈!
+
+无论你选择什么方式来让用户使用你的产品,你都要保证在用户操作的过程中有足够的提示和反馈来返回给用户,让用户知道自己的操作没有错误,从而不会在操作过程中因为过高的学习成本而产生沮丧情绪.
+
+用户在操作过程中必须立刻知道哪个元素是可以被交互的 - 类似 "点击按钮来选择一篇文章" 这种简单的提示应该在菜单设计中加入.一旦用户开始和菜单中的选项交互,流畅自然的视觉反馈和听觉反馈就应该贯穿着整个过程, 比如按钮在被Hover时应该马上高亮,滑块的滑动应当更加流畅等等.你对用户进行了更多的引导,他们就更容易完成各项操作.
+
+![](https://developer.leapmotion.com/documentation/images/FrogDissection_lit.jpg)
+
+Frog Dissection 在按钮被选择时使用变大和变亮的方式来告诉用户按钮正在被选中
+
+![](https://developer.leapmotion.com/documentation/images/SkyMuffins.jpg)
+
+Sky Muffins 这个应用在你指向选择按钮的时候使用"填充"的方式来告诉用户按钮正在被选中.
+
+像文章前面建议的那样,这两个应用用了Leap Motion Touch Zone方面的API来处理点击按钮的相关反馈.关于这个API更多的内容,请看API文档中相关的介绍 , 而这篇文章主要告诉我们如何从一个开发者的角度来更好地使用这个API.
