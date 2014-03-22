@@ -51,26 +51,18 @@
 把菜单布局和亲近高亮原则结合起来就能做出易于使用的菜单,但是通常来说这并不能做出好看并且易于让leap程序来使用的菜单.以下这些例子使用放射状或者网格状的菜单,希望能加深您对菜单交互这个课题的理解.这些例子使用点击(z轴)来作为激活交互方案.除此之外他们也包括了当每一个选项被选中时清晰的高亮反馈,当你在不同选项之间选择的时候会伴随着音效的提醒.最后用光标的变化来表示手指在z轴上的变化,让用户知道自己正在点击这个选项.
 
 ##放射性菜单
-一下
-The following radial menus show how you can navigate a number of items quickly and accurately by arranging their layout in a ring or pie. The movement required to target one of the cells is extremely slight which reduces the amount of latency and physical strain. The menus with a central cell could use that area for the most important item in the menu or as a “neutral zone”.
+
+以下这些放射型菜单展现了如何快速把一堆选项用排列成戒指或者派这样的形状.当你需要选择这种菜单中的某一项的时候,你只需要将指标选择这块区域的某一点就能选中这一项,其实就是通过扩大选项面积来减少选中难度.而菜单最中央的区域你可以用来做为一个最重要的区域,也可以仅仅作为非选择区域.
 
 你可以在[这个地方](http://goo.gl/ZKoTp7)找到源代码.
 
 ![5 Cell Radial Menu with Center Target	 ](https://developer.leapmotion.com/documentation/images/Radial_002.png)
 
-5 Cell Radial Menu with Center Target
-
 ![6 Cell Symmetrical Radial Menu](https://developer.leapmotion.com/documentation/images/Radial_005.png)
-
-6 Cell Symmetrical Radial Menu
 
 ![7 Cell Radial Menu with Center Target	](https://developer.leapmotion.com/documentation/images/Radial_006.png)
 
-7 Cell Radial Menu with Center Target
-
 ![4 Cell Symmetrical Radial Menu with 2 Columns](https://developer.leapmotion.com/documentation/images/Radial_008.png)
-
-4 Cell Symmetrical Radial Menu with 2 Columns
 
  
  
@@ -82,29 +74,12 @@ Similar to the radial menus, these grid based menus provide a simple method of a
 你可以在[这个地方](http://goo.gl/6seQ29)找到源代码.
 
 ![](https://developer.leapmotion.com/documentation/images/Grid001.png)
-6 Cell Symmetrical Row Menu	 
 
 ![](https://developer.leapmotion.com/documentation/images/Grid002.png)
-6 Cell Symmetrical Column Menu
 
 ![](https://developer.leapmotion.com/documentation/images/Grid003.png)
-9 Cell Symmetrical Grid Menu
 
 ![](https://developer.leapmotion.com/documentation/images/Grid005.png)
-5 Cell Row Menu with Right Zone
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -132,10 +107,10 @@ Similar to the radial menus, these grid based menus provide a simple method of a
 
 ![](https://developer.leapmotion.com/documentation/images/FrogDissection_lit.jpg)
 
-Frog Dissection 在按钮被选择时使用变大和变亮的方式来告诉用户按钮正在被选中
+**Frog Dissection** 在按钮被选择时使用变大和变亮的方式来告诉用户按钮正在被选中
 
 ![](https://developer.leapmotion.com/documentation/images/SkyMuffins.jpg)
 
-Sky Muffins 这个应用在你指向选择按钮的时候使用"填充"的方式来告诉用户按钮正在被选中.
+**Sky Muffins** 这个应用在你指向选择按钮的时候使用"填充"的方式来告诉用户按钮正在被选中.
 
 像文章前面建议的那样,这两个应用用了Leap Motion Touch Zone方面的API来处理点击按钮的相关反馈.关于这个API更多的内容,请看API文档中相关的介绍 , 而这篇文章主要告诉我们如何从一个开发者的角度来更好地使用这个API.
