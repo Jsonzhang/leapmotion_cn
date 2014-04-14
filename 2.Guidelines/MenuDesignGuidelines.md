@@ -69,7 +69,7 @@
 
 ##栅格菜单
 
-Similar to the radial menus, these grid based menus provide a simple method of accessing items with a minimum of effort, but using a column/row/grid based layout.
+和放射性菜单相似,使用列/排布局的栅格菜单也能让用户轻松选中对应的选项.
 
 你可以在[这个地方](http://goo.gl/6seQ29)找到源代码.
 
