@@ -10,14 +10,14 @@
 
 ## 综述
 
-简单来说,Leap Motion设备会检测并跟踪其视野范围内的手和手指.Leap会将这些数据全部放到每个时间点的帧对象里. Web applications can use the Leap Motion JavaScript API to access this data. The Leap Motion controller sends tracking information through the socket connection as a JSON formated message. The JavaScript API takes the JSON message and evaluates it into proper objects.
+简单来说,Leap Motion设备会检测并跟踪其视野范围内的手和手指.Leap会将这些数据全部放到每个时间点的帧对象里. Web 应用程序可以使用 Leap Motion 的 JavaScript API 来控制这些数据. Leap Motion 控制器将这些追踪到的数据格式化为JSON格式,并通过 socket 连接.Leap 的JavaScript API 将这些JSON数据各自放到合适的对象里再进行传送.
 
-The sample application demonstrates how to use the Leap Motion JavaScript API. The example is contained in a single Web page, Sample.html. The application displays several properties from the key tracking data objects in the Leap Motion API, including:
+示例程序演示了如何使用 Leap Motion JavaScript API. 这个例子包含了一个简单的web页面 -Sample.html. 这个应用展示了如何用 Leap Motion API 访问到以下这几种数据:
 
-+ Frame — contains a set of hand and pointable tracking data
-+ Hand — contains tracking data for a detected hand
-+ Pointable — contains tracking data for a detected finger or tool
-+ Gesture — represents a recognized gesture
++ Frame — 包含了一组手和手指对应的追踪数据
++ Hand — 包含检测到的手的数据
++ Pointable — 包含检测到的手指或者工具的数据
++ Gesture — 包含可辨认手势的数据
 
 ## JavaScript 库 (LeapJS)
 
@@ -55,8 +55,7 @@ Leap Motion的Javascript静态库可以直接从上面的Github地址下载.这�
 
 由于Leap Motion控制器连续不断地提供数据,你需要设置一个event loop来操作每一帧相应的数据.
 
-这个示例
-This example demonstrates the second method since there is no need in this app to process the data faster than the browser can draw it to the screen. The Leap Motion API provides the Leap.loop() function, which invokes a callback function you provide whenever the browser is ready to draw. In this sample, the callback is an anonymous function that prints out the tracking data to the body of the web page. The first parameter of the loop() function contains optional settings parameters that are passed to the Controller object. This is the skeleton of the function:
+这个示例演示了如何用另一种方法来更快地操作这些数据,因为如果不需要浏览器绘制而单单只需要数据处理,那速度自然会更快啦.Leap Motion API 提供一个 Leap.loop() 函数来在浏览器渲染完成后不断执行你提供的回调函数.在这个例子里,回调函数是一个匿名函数,功能仅仅是向示例页面的Body部分打印出追踪到的数据. loop() 函数的第一个参数包括了一个向控制器对象传递的可选的settings参数. 这是一个最简单的demo的样子:
 
 	// Setup Leap loop with frame callback function
 	var controllerOptions = {enableGestures: true};
@@ -197,17 +196,15 @@ Leap Motion控制器中的Gesture对象包含了每一帧里被识别到的手�
 	  }
 	}
 
-##Running the sample
+
+##运行实例
 
 1. 将Leapmotion设备插入USB口并且放在你面前.
 
 2. 如果还没有安装SKD请先安装LeapSDK.
 
-3. LeapMotion的软件会自动运行.    
-The Leap Motion 控制面板图标会在通知栏出现,如果可用则会出现为绿色. A service or daemon runs in the background and provides data to client applications through the Leap Motion API. You can use the diagnostic visualizer to check whether the software is set up and running correctly.
+3. LeapMotion的软件会自动运行.The Leap Motion 控制面板图标会在通知栏出现,如果可用则会出现为绿色. Leap motion 程序会在后台运行 , 并将检测到的数据传回给应用程序. 你可以使用可视化的诊断工具来确认软件是否正确安装和运行.
 
-4. 在支持 WebSockets 的浏览器里打开 Sample.html.
+4. 在支持 WebSockets 的浏览器里打开 Sample.html. 当你将手放在leap设备上的时候你会看到屏幕上会马上打印出对应的Frame,Hand和Finger数据.当你用这只手做一个Leap可识别的手势的时候你会看到对应的手势信息.
 
-When you place a hand above the Leap, you should see the Frame, Hand, and Finger information printed out on the page. When you make a gesture, you should also see the appropriate Gesture information.
-
-Now that you have seen how to access motion tracking data with the Leap Motion API, you can begin developing your own JavaScript applications that integrate the Leap Motion controller.
+现在你已经知道如何用Leap Motion的API获得并操作设备追踪到的数据,你可以开始开发一个用Leap motion来操控的Javascript应用
