@@ -91,280 +91,299 @@
 2. 你可以在不同的轮询间隔中测试哪一个可以让你的应用有最佳的表现.你可以在应用最后八帧做抽样调查,取出性能最好获得最多数据的一帧按照这个参数去设置你的应用.
 3. 你可以选择是否接受信号和数据. 比如在用户按下某一个你设置的虚拟按钮后就停止数据的监听,而再次点击后就开始监听,诸如此类的操作.
 
+
+
+
+
+
+
+
+
+
 ##计量单位
 
-All distances are expressed in millimeters, as floating point numbers. If you want to get relative (percent) measurements, use the InteractionBox.normalizePoint method. See the Leap.InteractionBox documentation for axis orientation. Coordinates for positions and directions are expressed as array objects containing three values ([x, y, z]). You can use the glMatrix library to perform vector and matrix math with these arrays.
+长度单位都是以毫米为单位,数值类型是浮点数. 如果你想获得一个相对的测量值(百分比),可以使用 `InteractionBox.normalizePoint` 这个方法. 如果你有看轴方向上`Leap.InteractionBox `文档. 坐标系上的位置和方向都是用包含三个数值的数组对象来表示的([x, y, z]). 你可以使用 glMatrix 这个库来用数学向量和矩阵的原理操作这些三维数组.
 
-All angles are measured in Radians. To convert to degrees, multiply by 180/Math.PI.
+所有角度都是用弧度来作为单位, 如果需要转换为角度数,只需要乘以 180/Math.PI.
 
-All time/timestamp measurements are given in microseconds; 1,000,000 microseconds = 1 second. Timestamps are relative measures of time since the Leap Motion software initialized. Subtract one timestamp from another to calculate the time that has elapsed between them.
+所有的时间单位都是毫秒;1000000毫秒 = 1 秒. 时间戳是相对于Leap Motion软件初始化后的时间.两个时间戳相减就能得到他们间的时间距离.
 
 Frame indexes reflect the LIFO nature of the Leap.Controller's frames collection.
 
-my_controller.frames(0)  == my_controller.frames() == the most recent frame.
-my_controller.frames(1) is the previous frame
-my_controller.frames(2) is two frames ago
-and so on. Keep in mind that frames are constantly being pushed onto the stack, so my_controller.frames(2) will be a different frame in a few milliseconds. When in doubt use frame.id to identify/compare frames.
++ my_controller.frames(0)  == my_controller.frames() == the most recent frame.
++ my_controller.frames(1) is the previous frame
++ my_controller.frames(2) is two frames ago
 
-All positions and directions are returned as an array of three coordinates (see above). See Leap.InteractionBox for methods on normalizing and denormalizing coordinates.
+诸如此类. 要记住`frames`这个对象是会被不断地推入到栈中的,所以`my_controller.frames(2)`在几毫秒后就会是一个不同的 `frame` 对象 , 如果需要进一步确认可以使用`frame.id`来识别和比较不同的帧.
 
-scaleFactor
 
-Leap.Hands and Leap.Frames have scaleFactor functions. Scale factor indicates a change in distance between things over time. For hands, this means the change in distance between the fingers. The function has a parameter: a baseline frame.
+所有 **positions** 和 **directions** are returned as an array of three coordinates (see above). See Leap.InteractionBox for methods on normalizing and denormalizing coordinates.
 
-Scale factor for hands
-Jazz_hands
-Hand scale factor reflects the relative "Jazz handiness" of your fingers, compared with the baseline spread in the reference frame.
+###scaleFactor
 
-If you pinch all your fingers together since the reference frame, your hand's scaleFactor will be < 1.
-If you expand ("jazz hands") your fingers farther apart, your hands' scaleFactor will be > 1.
-Scale factor for frames
-Jazz_arms
-When frame.scaleFactor(old_frame) is called, it reflects the relative distance between the hands -- the "fish measuring factor".
+`Leap.Hands` 和 `Leap.Frames` 都有一个 `scaleFactor` 函数. Scale factor indicates a change in distance between things over time. 对于手对象 `hands`来说, this means the change in distance between the fingers. The function has a parameter: a baseline frame.
 
-If you move your hands apart, the scale factor will be > 1
-If you move your hands together, the scale factor will be < 1
-If Leap cannot relate the baseline reference with the current frame/hand data, the scaleFactor will be 1.
+####比例因子对手的影响
+![](https://di4564baj7skl.cloudfront.net/assets/leapjs/pointables/jazz_hands-f65fc3f5c55251061637dabb0e778b09.png)
 
-Valid and Invalid function return results
-Any function which returns an instance object (Pointable, Frame, Hand,...) will ALWAYS return an object, even under conditions where returning an object is impossible (bad parameters, your hands aren't in front of the detector, etc.). Instead of returning false, null, or throwing an error, an invalid instance will be returned.
+手比例因子会影响映射后手和手指的相对位置,如上图,如果比例因子是0.5 手会被平行拉伸,反之为2则被平行压缩.
 
-This lets you access child objects, such as fingers, without first checking that the frame exists, and that the hand exists in the frame, and so on, but you should examine the valid property of the final, target object before using its properties and methods. The valid property is a boolean and all Leap instances (except Gesture objects) have one.
++ 如果你把手指并拢,你的手的比例因子应该小于 1.
++ 如果你把手指张开,你的手的比例因子则应该大于 1.
+####比例因子对帧(frame)的影响
+![](https://di4564baj7skl.cloudfront.net/assets/leapjs/pointables/jazz_arms-2724ffe5e992e50b4c46701706568243.png)
 
-Leap Methods
-Leap.Loop(callback)
 
-This static method of the Leap global object fires repeatedly, approximately sixty times a second. See Getting Frame Data from your Leap Motion controller for other ways of accomplishing data monitoring.
 
-The Callback receives a single Leap.Frame instance.
 
-For additional information, see Leap.loop().
 
-Leap Classes
-Leap.Frame
 
-A collection of state information fed back from the Leap Motion hardware. A frame is the "root" data unit; it contains all the positional data that streams from the Leap Motion detector, Fingers/Tools/Pointables at a given instant in time.
+当`frame.scaleFactor`(old_frame) 被调用时它会 it reflects the relative distance between the hands -- the "fish measuring factor".
 
-See Getting Frame Data from your Leap Motion controller for documentation on getting frames.
++ 如果你分开你的双手,这个比例因子应该大于 1.
++ 如果你将双手向彼此靠拢,这个比例因子则应该小于 1.
++ 如果Leap程序不能够找到当前帧的参考基线,这个比例因子则为1
 
-A note on Frame.Fingers, Frame.pointables, and Frame.tools:
+##函数返回的结果
 
-Pointables
-frame.fingers, frame.tools and frame.pointables are different collections of instances which are all instances of the Leap.Pointable base class. (there is no special Leap.Tools or Leap.Fingers class -- just Leap.Pointable.)
+可以返回实例对象(Pointable, Frame, Hand,...)的函数始终返回的都会是对象而不会是其他,即使在参数错误或者你的手不在检测设备上的时候也不会返回false,null或者抛出错误,这个时候它会返回一个无效的示例对象,但是依旧是返回一个对象.
 
-The pointables collections contains all the pointables also found in tools and fingers.
-The tools collections and the fingers collections are exclusive; there is no pointer which can be found in both the fingers collection and the tools collection
-All pointables in these root collections can be found in the frame.hands properties.
-Any of these collections can be empty, if the user's hands/fingers/tools aren't picked up by the Leap Motion detector.
-All fingers/tools/pointables from both hands are stored with no ordering in these root level collections.
-Frame Properties:
-currentFrameRate
-fingers[]
-hands[]
-id
-interactionBox
-Invalid
-valid
-pointables[]
-timestamp
-tools[]
-Frame Functions:
-dump()
-finger()
-hand()
-pointable()
-rotationAngle()
-rotationAxis()
-rotationMatrix()
-scaleFactor()
-tool()
-toString()
-translation()
+这样的机制让你可以在任何时候都能访问到其子对象,如fingers, 不用每次都做这个frame是否存在,或者frame中是否存在hand之类的检查,但是你应该检查你要获取的对象是否存在,否则你在使用它的属性和方法的时候也会出现错误. 所有的Leap实例都有类似Boolean值这样有效的值(除了 `Gesture` 对象).
 
-For more information, see Frame in the API reference.
+##Leap Methods
 
-Leap.Pointable
+###Leap.Loop(callback)
 
-The Pointable class represents detected finger or tool **. Both fingers and tools are classified as Pointable objects. Use the Pointable.tool property to determine whether a Pointable object represents a tool or finger Note that Pointable objects can be invalid, which means that they do not contain valid tracking data and do not correspond to a physical entity. Invalid Pointable objects can be the result of asking for a Pointable object using an ID from an earlier frame when no Pointable objects with that ID exist in the current frame.
+这是一个会在Leap全局对象上大约每秒60次重复调用的静态方法,
+This static method of the Leap global object fires repeatedly, approximately sixty times a second. 也可以看看 [从你的Leap Motion控制器获取数据]() 的其他方法.
 
-** The Leap classifies a detected entity as a tool when it is thinner, straighter, and longer than a typical finger.
+回调函数接收一个 `Leap.Frame` 实例,更多详见 [`Leap.loop()`]()
 
-Pointable Properties:
-direction
-id
-Invalid
-length
-stabilizedTipPosition
-timeVisible
-tipPosition
-tipVelocity
-tool
-touchDistance
-touchZone
-valid
-width
-Pointable Functions:
-hand()
-toString()
 
-For more information, see Pointable in the API reference.
+##Leap Classes
 
-Leap.Controller
+###Leap.Frame
 
-Represents the connection to a single Leap detector. You can have multiple controllers in a single run time. Note that Leap.Controller is a JavaScript class; whereas the Leap Motion controller refers to an actual piece of hardware -- the box.
+这个对象包含的是硬件反馈的信息汇总. 一个`frame`对象就是一个 "根" 数据; 这个对象包含了Leap Motion检测器中的所有位置信息,包括Fingers/Tools/Pointables等.
 
-The code below creates a Leap.Controller, with an option parameter object specifying to enable gestures and to use the browser animation loop:
+在文档中我们可以知道从Leap Motion控制器获取数据就意味着取得其中`frames`这个部分.
 
-  var controller = new Leap.Controller({
-  enableGestures: true,
-  frameEventName: 'animationFrame'
-});
-Any or all these properties are optional; you can also create a controller with a simpler parameter set:
+`Frame.Fingers`, `Frame.pointables`, 和 `Frame.tools`简介:
 
-  var controller = new Leap.Controller({enableGestures: true});
-Controller Events
-connect
-The client is connected to the WebSocket server.
-frame
-An iteration of the frame loop is starting. This event is either driven by the animationFrame or the deviceFrame event, depending on how the Leap.Controller was created. The latest frame is passed as an argument to the event handler. This frame may or may not be a new frame.
-gesture
-Dispatched for each gesture object in a new frame of data received from the WebSocket.
-disconnect
-The client disconnects from the WebSocket server.
-focus
-The browser received focus.
-blur
-The browser loses focus.
-deviceConnected
-A Leap device has been connected.
-deviceDisconnected
-A Leap device has been disconnected.
-protocol
-The protocol has been selected for the connection. The protocol object is passed as an argument to the event handler.
-Here is a typical initialization cycle for interacting with a Leap Motion controller:
+![](https://di4564baj7skl.cloudfront.net/assets/leapjs/pointables/pointables-3f978e63923a623262d4422999a20e67.png)
 
-var controller = new Leap.Controller();
 
-controller.on('connect', function() {
-  console.log("Successfully connected.");
-});
+`frame.fingers`, `frame.tools` 和 `frame.pointables` 都是`Leap.Pointable`的实例对象,但是又都是包含着不同数据的实例. (没有像 `Leap.Tools` 或者 `Leap.Fingers` 这样的类,只有`Leap.Pointable`.)
 
-controller.on('deviceConnected', function() {
-  console.log("A Leap device has been connected.");
-});
++ `pointables` 集合包括检测到的所有指向型物体,包括手指和工具.
++ `tools` 集合 和`fingers` 集合中的对象是互斥的,就是说两者中的对象组合成了`pointables`对象且两者之间没有任何一个重叠共同拥有的对象.
++ 根数据中的所有` pointables` 数据都被放在 `frame.hands` 对象下面.
++ 以上提到的这些数据集合可以是一个空集合, 比如使用者的手不在检测设备上时,那么就会返回一个空集合.
++ 所有的手指,工具或者类似的指向性物体的数据都被无序存放在根数据集合中.
 
-controller.on('deviceDisconnected', function() {
-  console.log("A Leap device has been disconnected.");
-});
+####Frame Properties:
++ [currentFrameRate]()
++ [fingers[]]()
++ [hands[]]()
++ [id]()
++ [interactionBox]()
++ [Invalid]()
++ [valid]()
++ [pointables[]]()
++ [timestamp]()
++ [tools[]]()
+####Frame Functions:
++ [dump()]()
++ [finger()]()
++ [hand()]()
++ [pointable()]()
++ [rotationAngle()]()
++ [rotationAxis()]()
++ [rotationMatrix()]()
++ [scaleFactor()]()
++ [tool()]()
++ [toString()]()
++ [translation()]()
 
-controller.connect();
+更多详见, API 指引中关于 Frame 的介绍.
 
-Controller Properties:
-frameEventName
-Controller Functions:
-connect()
-disconnect()
-frame()
-inBrowser()
-on()
-plugin()
-setBackground()
-stopUsing()
-use()
+###Leap.Pointable
 
-For more information, see Controller in the API reference.
+`Pointable` 类代表了被探测到的手指或者工具.手指和工具都是被当作指向类的对象. 用 `Pointable.tool` 属性来确认一个指向类对象代表的是手指还是工具,当前前提是这个Pointable 对象是可用的, which means that they do not contain valid tracking data and do not correspond to a physical entity. 比如你使用一个之前帧内出现过的Pointable对象的ID来获取当前帧内对应的 Pointable 对象,那么就会返回一个无效的Pointable 对象.
 
-Leap.Hand
+** The Leap 会将一个比普通手指细,长,直的物体分类为工具(tools).
 
-The Hand class reports the physical characteristics of a detected hand. Hands are accessed as properties of the Leap.Frame's hand array; at this point, up to two hands can be simultaneously tracked and returned with frame data. Hand tracking data includes a palm position and velocity; vectors for the palm normal and direction to the fingers; properties of a sphere fit to the hand; and lists of the attached fingers and tools.
+####Pointable Properties:
++ [direction]()
++ [id]()
++ [Invalid]()
++ [length]()
++ [stabilizedTipPosition]()
++ [timeVisible]()
++ [tipPosition]()
++ [tipVelocity]()
++ [tool]()
++ [touchDistance]()
++ [touchZone]()
++ [valid]()
++ [width]()
+####Pointable Functions:
++ [hand()]()
++ [toString()]()
 
-See the Leap.Frame class documentation for the difference between Pointables, Fingers and Tools.
+更多详见 API 文档中对 Pointable 的介绍.
 
-The below illustration shows the hand's palmNormal and direction vectors emanating from the palmPosition:
+###Leap.Controller
 
-Palm Vectors 
-Hand Properties:
-direction
-fingers[]
-id
-Invalid
-valid
-palmNormal
-palmPosition
-palmVelocity
-pointables[]
-sphereCenter
-sphereRadius
-stabilizedPalmPosition
-timeVisible
-tools[]
-Hand Functions:
-finger()
-pitch()
-roll()
-rotationAngle()
-rotationAxis()
-rotationMatrix()
-scaleFactor()
-toString()
-translation()
-yaw()
+这个控制器函数代表Leap设备和程序之间的连接. 你可以在一个应用内激活几个控制器.但是要注意的是 `Leap.Controller` 是一个 JavaScript 类;而 Leap Motion controller 表现的数据是来自硬件设备的.
 
-For more information, see Hand in the API reference.
+下面这段代码创建了一个 `Leap.Controller` ,可以传入一个可选的对象参数 , 这个对象里可以传入是否启用手势和浏览器循环之类等参数.
 
-Leap.InteractionBox
+      var controller = new Leap.Controller({
+      enableGestures: true,
+      frameEventName: 'animationFrame'
+    });
+
+这些传入的参数都是可选的; 所以像下面这样也是可以运行的:
+
+    var controller = new Leap.Controller({enableGestures: true});
+
+
+####Controller 事件
+
++ **[connect]()** 侦听客户端是否与WebSocket服务器端连接成功.
++ **[frame]()** 侦听内部循环事件的开始. 这个事件会被`animationFrame`或者 `deviceFrame` 触发, 取决于` Leap.Controller` 何时被创建. 而最近一帧的数据就会不断作为参数传入到这个事件的回调函数里,而程序只能保证这是最近一帧的数据,这一帧数据可能是新的,也可能不是.
++ **[gesture]()** 侦听从WebSocket接收到的每一个手势对象.
++ **[disconnect]()** 侦听客户端与浏览器连接不成功.
++ **[focus]()** 侦听浏览器获得焦点.
++ **[blur]()** 侦听浏览器失去焦点.
++ **[deviceConnected]()** 侦听Leap设备连接.
++ **[deviceDisconnected]()** 侦听Leap设备断开.
++ **[protocol]()** The protocol has been selected for the connection. The protocol object is passed as an argument to the event handler.
+
+下面介绍一个Leap程序正常来说如何初始化:
+    
+    var controller = new Leap.Controller();
+    
+    controller.on('connect', function() {
+      console.log("Successfully connected.");
+    });
+    
+    controller.on('deviceConnected', function() {
+      console.log("A Leap device has been connected.");
+    });
+    
+    controller.on('deviceDisconnected', function() {
+      console.log("A Leap device has been disconnected.");
+    });
+
+    controller.connect();
+
+####Controller 属性:
++ [frameEventName]()
+####Controller 函数:
++ [connect()]()
++ [disconnect()]()
++ [frame()]()
++ [inBrowser()]()
++ [on()]()
++ [plugin()]()
++ [setBackground()]()
++ [stopUsing()]()
++ [use()]()
+
+更多详见API文档中的 Controller 部分.
+
+###Leap.Hand
+
+Hand类代表被检测到的手的物理信息.手的信息是以`Leap.Frame`下的 `hand`数组这样的形式存在的.两只手是可以同时被追踪并且记录在frame的数据中.手的追踪数据包括了位置信息和方向向量;方向向量分为手掌方向和手指方向; hand对象的属性来自于模拟的手中球; `hand`对象上绑定有手指和工具的数据信息.
+
+看文档中的`Leap.Frame`类能知道更多关于 Pointables, Fingers 和 Tools 的区别在哪.
+
+下面这张图展示了关于手的两个方向向量 `palmNormal`和`palmPosition`:
+
+![Palm Vectors](https://di4564baj7skl.cloudfront.net/assets/leapjs/Leap_Palm_Vectors_annotated-0d234a44a0f753f262ca31ede87882f0.png)
+
+####Hand Properties:
+
++ [direction]()
++ [fingers[]]()
++ [id]()
++ [Invalid]()
++ [valid]()
++ [palmNormal]()
++ [palmPosition]()
++ [palmVelocity]()
++ [pointables[]]()
++ [sphereCenter]()
++ [sphereRadius]()
++ [stabilizedPalmPosition]()
++ [timeVisible]()
++ [tools[]]()
++ Hand Functions:
++ [finger()]()
++ [pitch()]()
++ [roll()]()
++ [rotationAngle()]()
++ [rotationAxis()]()
++ [rotationMatrix()]()
++ [scaleFactor()]()
++ [toString()]()
++ [translation()]()
++ [yaw()]()
+
+更多详见API文档中的 Hand 部分.
+
+###Leap.InteractionBox
 
 A representation of the "airspace" in which the Leap Motion controller can measure/see your hands and fingers. Note that the range of the interaction box may change with hardware or software advances. Use the interaction boxes' properties to scale your measurements -- don't hard code these values in your JavaScript.
 
-The Axes' orientation
-Leap_axes_annotated
+####The Axes' orientation
+![Leap_axes_annotated](https://di4564baj7skl.cloudfront.net/assets/leapjs/Leap_Axes_annotated-2155d4518ff426c9316abc13d88042dc.png)
 
-The x-axis goes to the right. 0 on the x axis is the middle of the Leap Motion controller.
-The y-axis goes up, from the Leap Motion controller; you will likely have to negate it to make it consistent with screen/DOM graphic coordinates. 0 on the y axis is very close to the Leap Motion detector.
-The z-axis points towards you. 0 on the z axis is right above the detector. Your monitor will be at -Z, your head will have a +Z measurement.
++ X轴向右伸展,原点在Leap Motion控制器的中心.
++ Y轴向上伸展,原点在Leap Motion控制器的中心; 可能相对于你的屏幕来说不是这样,但是Y轴的零点的确非常接近Leap Motion 控制器.
++ Z轴朝使用者的身体伸展,原点在Leap Motion控制器的中心. 所以你的显示器在-Z的位置而你的身体在+Z的位置.
 
-InteractionBox Properties:
-center
-depth
-height
-Invalid
-valid
-width
-InteractionBox Functions:
-denormalizePoint()
-normalizePoint()
-toString()
+####InteractionBox 属性:
++ [center]()
++ [depth]()
++ [height]()
++ [Invalid]()
++ [valid]()
++ [width]()
+####InteractionBox 方法:
++ [denormalizePoint()]()
++ [normalizePoint()]()
++ [toString()]()
 
-For more information, see InteractionBox in the API reference.
+更多详见API文档中的`InteractionBox`.
 
-Gesture
+###手势
 
-The Gesture class represents a recognized movement by the user. The Leap watches the activity within its field of view for certain movement patterns typical of a user gesture or command. For example, a movement from side to side with the hand can indicate a swipe gesture, while a finger poking forward can indicate a screen tap gesture. When the Leap recognizes a gesture, it assigns an ID and adds a Gesture object to the frame gesture list. For continuous gestures, which occur over many frames, the Leap updates the gesture by adding a Gesture object having the same ID and updated properties in each subsequent frame. Important: Recognition for each type of gesture must be enabled; otherwise no gestures are recognized or reported. Subclasses of Gesture define the properties for the specific movement patterns recognized by the Leap.
+`Gesture` 类包含了被探测到辨识出的所有手势数据.  Leap 会监测视野范围内物体的运动和是否构成手势并将这些数据返回到程序.比如用手做出一个左右摇摆的动作就会被视为是一个滑动(swipe)手势,当一个手指向前戳屏幕的时候就会被视为一个屏幕点击(screen tap)手势.当Leap检测辨认到手势的出现时,程序会自动为这个手势注册一个ID,并将这个手势对象添加到帧的手势列表中.持续的手势会在很多帧里被触发,对于一个这样的手势 Leap 会不断向这个手势对象更新数据,但是这个手势结束之前这个对象的ID是不会变的. 需要提醒的一点是: 手势识别需要在参数里开启,否则任何手势都不会被监测到;,`Gesture`的子类定义了每个手势特殊的运动模式,这些运动模式能够被Leap辨识到.
 
-The Gesture subclasses for include:
+手势分为四类:
 
-CircleGesture
-A circular movement by a finger
-SwipeGesture
-A straight line movement by the hand with fingers extended.
-ScreenTapGesture
-A forward tapping movement by a finger.
-KeyTapGesture
-A downward tapping movement by a finger.
-Number of gestures produced
++ **圆圈手势** 手指绕圈动
++ **滑动手势** 五指张开,手掌线性滑动.
++ **屏幕点击手势** 手指向前点击.
++ **按键点击手势** 手指向下点击.
 
-Circle and swipe gestures are continuous and these objects can have a state of start, update, and stop.
+###手势状态
 
-The screen tap gesture is a discrete gesture. The Leap only creates a single ScreenTapGesture object appears for each tap and it always has a stop state.
+圆圈手势和滑动手势是连续手势,所有会有一个开始的状态,更新的状态和停止的状态.
 
-Getting Gesture instances from a Frame object.
+屏幕点击手势是一个瞬间的非连续的手势,所以Leap只会创建一个`ScreenTapGesture`对象,而这个对象之会有一个停止的状态可供侦听.
 
-You can get a list of gestures from the Frame gestures array. You can also use the Frame gesture() method to find a gesture in the current frame using an ID value obtained in a previous frame. Gesture objects can be invalid.
+###从`Frame` 对象中获取到手势数据
 
-For more information, see the following classes in the API reference:
+你可以从帧的手势数组中获取到一个关于手势数据的列表.你也可以使用`Frame gesture()`这个方法去按照过去某一帧中获取到的ID找到一个当前帧的对应手势. `Gesture` 对象可以是空的.
 
-Gesture
-CircleGesture
-KeyTapGesture
-ScreenTapGesture
-SwipeGesture
+更多详见API文档中的解释:
+
++ [Gesture]()
++ [CircleGesture]()
++ [KeyTapGesture]()
++ [ScreenTapGesture]()
++ [SwipeGesture]()
