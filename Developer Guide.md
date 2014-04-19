@@ -4,13 +4,13 @@
 
 <div class="row-fluid">
   <div class="span4">
-    <h2>Methods</h2>
+    <h2>方法</h2>
     <ul>
       <li><a href="#Leap_loop">Leap.Loop(callback)</a></li>
     </ul>
   </div>
   <div class="span8">
-    <h2>Classes</h2>
+    <h2>类</h2>
     <div class="row-fluid">
       <div class="span6">
         <ul>
@@ -108,16 +108,16 @@
 
 所有的时间单位都是毫秒;1000000毫秒 = 1 秒. 时间戳是相对于Leap Motion软件初始化后的时间.两个时间戳相减就能得到他们间的时间距离.
 
-Frame indexes reflect the LIFO nature of the Leap.Controller's frames collection.
+帧索引会影响到`Leap.Controller`下的 frames 集合的数据的堆栈顺序.
 
-+ my_controller.frames(0)  == my_controller.frames() == the most recent frame.
-+ my_controller.frames(1) is the previous frame
-+ my_controller.frames(2) is two frames ago
++ my_controller.frames(0)  == my_controller.frames() == 最近一帧的数据.
++ my_controller.frames(1) 之前一帧的数据
++ my_controller.frames(2) 之前两帧的数据
 
 诸如此类. 要记住`frames`这个对象是会被不断地推入到栈中的,所以`my_controller.frames(2)`在几毫秒后就会是一个不同的 `frame` 对象 , 如果需要进一步确认可以使用`frame.id`来识别和比较不同的帧.
 
 
-所有 **positions** 和 **directions** are returned as an array of three coordinates (see above). See Leap.InteractionBox for methods on normalizing and denormalizing coordinates.
+所有 **positions** 和 **directions** 都会返回一个三维数组. 如 `Leap.InteractionBox` for methods on normalizing and denormalizing coordinates.
 
 ###scaleFactor
 

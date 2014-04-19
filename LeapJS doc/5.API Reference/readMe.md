@@ -49,7 +49,7 @@ Arguments:
       + animationFrame 表示使用浏览器默认的60帧/秒  ,默认使用的是animationFrame.                
       + deviceFrame 表示使用leap motion的硬件频率(从 20 到 200 fps 不等,取决于使用者的设置和电脑的性能).
    + useAllPlugins - 默认为true.这个选项告诉控制器是否使用页面内所有的插件. 关于这个选项更详细的内容可以参见 [https://github.com/leapmotion/leapjs/wiki/plugins](https://github.com/leapmotion/leapjs/wiki/plugins).
-   + loopWhileDisconnected — 默认是 true, 如果设置为true意味着任何时候都会运行这个循环. 而如果你设置为false的话表明 If you set this to false, the animation loop does only runs when the Controller() object is connected to the Leap Motion service and only when a new frame of data is available. Setting loopWhileDisconnected to false can minimize your app’s use of computing resources, but may irregularly slow down or stop any animations driven by the frame loop. Added in LeapJS version 0.4.3.
+   + loopWhileDisconnected — 默认是 true, 如果设置为true意味着任何时候都会运行这个循环. 而如果你设置为false的话表明运动循环只会在`Controller()`对象连接到Leap Motion后台服务时才会运行,这意味着中间某些连接不上时的帧数据会直接丢失. 把 `loopWhileDisconnected` 设为 `false` 可以降低你的应用对电脑资源的消耗,但是也可能会不定期减慢或者停止由帧循环驱动动画.这个属性在 LeapJS v0.4.3 之后的版本才会存在.
    + callback (function) –
    当浏览器绘制完成之后的回调函数.包含最新的检测到的运动数据的Frame对象会作为参数传递给你的回调函数.
 
@@ -59,5 +59,5 @@ Arguments:
 			    var tenFramesBack = controller.frame(10);
 			});
 
-Returns:	
-Controller – the controller supplying tracking data to this loop function.
+返回值:	
+Controller – 返回的控制器用于控制循环函数以及向循环函数提供数据.
