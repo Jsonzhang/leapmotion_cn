@@ -19,8 +19,6 @@
 
 
 
-
-
 ##属性
 
 ###center
@@ -78,16 +76,7 @@
 
 + 类型 : number
 
-+ 说明 : The number of times the finger tip has traversed the circle.
-
-Progress is reported as a positive number of the number. For example, a
-progress value of .5 indicates that the finger has gone halfway around,
-while a value of 3 indicates that the finger has gone around the the
-circle three times.
-
-Progress starts where the circle gesture began. Since the circle must be
-partially formed before the Leap can recognize it, progress will be
-greater than zero when a circle gesture first appears in the frame.
++ 说明 : 这个属性表示画圈圈的对象画当前圈圈的进程.这个属性的值一定是正数. 比如 .5 意味着手指已经画圈画到了一半,以此类推.`Progress`这个属性才手势开始被检测到时就有了.
 
 + 版本 : Leap Motion 1.0 和 LeapJS 0.3.0
 
@@ -101,11 +90,7 @@ greater than zero when a circle gesture first appears in the frame.
 ###state
 + 类型 : string – “start”, “update” 和 “stop” 三者取值,其中一个
 
-+ 说明 : The gesture state.
-
-Recognized movements occur over time 和 have a beginning, a middle, 和
-an end. The ‘state’ attribute reports where in that sequence this
-Gesture object falls.
++ 说明 : 这个属性表示手势的当前状态.被检测到的动作随着时间推移会有分为开始,正在运行和已经停止三个状态.
 
 + 版本 : Leap Motion 1.0 和 LeapJS 0.3.0
 
