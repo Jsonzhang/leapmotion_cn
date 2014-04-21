@@ -131,25 +131,20 @@ Leap Motion 控制器类继承于 Node.js 的_`EventEmitter` <http://nodejs.org/
 
 ##setBackground(_state_)[](#setBackground "Permalink to this definition")
 
-Informs the Leap Motion WebSocket server that your application always wants to receive frames of tracking data when it is in the background 和 not being actively used. Note that setting this option true could lead to unintended input to your application while the user interacts with other applications. Most applications should not receive frames in the background.
+告诉 Leap Motion WebSocket 服务端你的应用程序需要时刻接收到追踪数据,即使是你的应用程序在后台或者没有被激活的时候你都需要这些数据. 需要注意的是设置这个选项为`true`可能会导致应用程序接收到一些意想不到的输入,因为即使用户在操控其他应用程序时你的应用程序都会收到用户输入的追踪数据.大多数应用程序不应该设置这个选项.
 
 
 参数:
 
-*   **state** (_boolean_) – True to receive frames at all times; otherwise, false (the default).
-
+*   **state** (_boolean_) – 设置为 `True` 来随时随地接收所有帧数据; 否则为`false` (默认)则只在程序激活时接收数据.
 
 返回值:[Controller()](\#Controller "Controller")
-
-
 
 版本 : Leap Motion 1.0.9 和 LeapJS 0.3.0
 
 ##blur[](#blur "Permalink to this definition")
 
-当浏览器页面失去焦点时触发. Typically, this occurs when the user
-changes tabs in a single browser window, but not, for example, when the user switches
-to a different browser window or another application.
+当浏览器页面失去焦点时触发. 通常来说这个函数是在用户在一个浏览器里面切换tab页时触发,而不是在用户切换到另一个浏览器或者其他windows窗口时触发.
 
     var controller = new Leap.Controller();
     controller.connect();
@@ -165,9 +160,9 @@ to a different browser window or another application.
 
 ##connect
 
-Dispatched when this controller establishes a connection to the Leap Motion WebSocket server.
-This event does not mean that tracking data is available as Leap Motion tracking may be
-paused by the user, or the device itself unplugged.
+当控制器与Leap Motion WebSocket 服务器端建立起连接的时候触发.
+
+这个事件的触发并不意味着数据可用,因为Leap Motion可能会被用户手动暂停,或设备本身不插电.
 
 
     var controller = new Leap.Controller();
@@ -185,25 +180,25 @@ paused by the user, or the device itself unplugged.
 
 ##deviceAttached[](#deviceAttached "Permalink to this definition")
 
-Dispatched when the Leap Motion device is plugged in or turned on.
+当Leap Motion设备插入,打开的时候触发.
 
-All `device` events include a device info object with the following information:
+所有 `device` 事件都包含有一个设备信息对象:
 
 * attached 
-    * type : boolean
-    * values :  true or false
+    * 类型 : boolean
+    * 值 :  true or false
 
 * streaming
-    * type : boolean
-    * values :  true or false
+    * 类型 : boolean
+    * 值 :  true or false
 
 * id 
-    * type : string
-    * values : the device hardware ID
+    * 类型 : string
+    * 值 : the device hardware ID
 
 * type 
-    * type : string
-    * values : One of:
+    * 类型 : string
+    * 值 : 下面值其中一个:
         *   peripheral
         *   keyboard
         *   laptop
@@ -214,10 +209,9 @@ All `device` events include a device info object with the following information:
 
 ##deviceConnected[](#deviceConnected "Permalink to this definition")
 
-Dispatched when the Leap Motion device is plugged in 和 when tracking is unpaused by the user.
+在Leap Motion 设备插件和用户手动确认继续跟踪数据时触发.
 
-Note that this event is not dispatched if the controller is already plugged in when your
-application starts.
+需要注意的是这个事件在控制器启动你的应用开始后不会触发.
 
     var controller = new Leap.Controller();
     controller.connect();
@@ -232,7 +226,7 @@ application starts.
 
 ##deviceDisconnected[](#deviceDisconnected "Permalink to this definition")
 
-Dispatched when the Leap Motion device is unplugged 和 when tracking is paused by the user.
+当用户手动断开Leap Motion设备或者设备没电断开时触发.
 
     var controller = new Leap.Controller();
     controller.connect();
@@ -248,25 +242,25 @@ Dispatched when the Leap Motion device is unplugged 和 when tracking is paused 
 
 ##deviceRemoved[](#deviceRemoved "Permalink to this definition")
 
-Dispatched when the Leap Motion device is unplugged or turned off.
+Leap Motion 设备断开时触发.
 
 版本 : Leap Motion 1.2 和 LeapJS 0.5.0
 
 ##deviceStopped[](#deviceStopped "Permalink to this definition")
 
-Dispatched when the Leap Motion device stops providing data.
+Leap Motion 设备停止提供数据时触发.
 
 版本 : Leap Motion 1.2 和 LeapJS 0.5.0
 
 ##deviceStreaming[](#deviceStreaming "Permalink to this definition")
 
-Dispatched when the Leap Motion device starts providing data.
+Leap Motion 设备开始提供数据时触发.
 
 版本 : Leap Motion 1.2 和 LeapJS 0.5.0
 
 ##disconnect
 
-Dispatched when this Controller object disconnects from the Leap Motion WebSocket server.
+Leap Motion服务和控制器断开连接时触发.
 
 
     var controller = new Leap.Controller();
@@ -284,7 +278,7 @@ Dispatched when this Controller object disconnects from the Leap Motion WebSocke
 
 ##focus[](#focus "Permalink to this definition")
 
-Dispatched when the browser tab gains focus.
+浏览器获得焦点时触发.
 
 
     var controller = new Leap.Controller();
@@ -303,17 +297,13 @@ Dispatched when the browser tab gains focus.
 
 每次循环不断触发的函数.
 
-如果`frameEventName`的值是 `animationFrame`,则帧速率会被设置为浏览器动画循环帧速率,这个值通常是60帧/秒.
- Since the animation loop timing does not match that of the Leap Motion device,
-you may get the same Leap.Frame object more than once or skip frames.
+如果`frameEventName`的值是 `animationFrame`,则帧速率会被设置为浏览器动画循环帧速率,这个值通常是60帧/秒.因为浏览器的动画循环速度和Leap Motion设备的刷新速度不一致,所以在接收数据时你可能活有好几帧都接收到一样的数据或者是有某一帧数据被跳过了这样的情况发生.
 
-If the frameEventName is `deviceFrame`, then this event is dispatched as
-each frame of Leap Motion data is received. The device frame rate can vary quite a bit
-depending on the user’s settings 和 the available computing power.
+如果把 `frameEventName` 设置为 `deviceFrame`,这个事件会在每一帧Leap Motion数据接收到的时候触发.但是设备的帧速率又取决于用户的设置和用户电脑的性能.
 
-Set the type of frame loop to use in the Controller object constructor function.
+设置控制器里的帧循环的类型.
 
-The current [Frame](Leap.Frame.html\#Leap.Frame "Leap.Frame") object is passed to your callback function.
+最新的[Frame](Leap.Frame.html\#Leap.Frame "Leap.Frame")对象会被传入到你的回调函数中.
 
 
     var controller = new Leap.Controller();
@@ -331,11 +321,9 @@ The current [Frame](Leap.Frame.html\#Leap.Frame "Leap.Frame") object is passed t
 
 当手势更新时触发.
 
-The associated [Gesture](Leap.Gesture.html\#Leap.Gesture "Leap.Gesture") 和 the current [Frame](Leap.Frame.html\#Leap.Frame "Leap.Frame") objects are passed to your
-callback function.
+手势相关的[Gesture](Leap.Gesture.html\#Leap.Gesture "Leap.Gesture")对象和当前[Frame](Leap.Frame.html\#Leap.Frame "Leap.Frame") 对象也会传入到你的回调函数中.
 
-当控制器开始执行默认的 `animationFrame` 循环时, any gestures generated in device frames produced between iterations of the `animationFrame` loop are collected 和 dispatched at the next iteration. This means that the Frame object passed to your gesture listener function will not always be the frame in which the gesture was recorded. The position 和 other physical attributes of the hands 和 fingers making the gesture may have changed slightly between frames. In some cases, a hand or Pointable object with the same IDs as those referenced by the Gesture object may not be present at all in the current frame.
-
+当控制器开始执行默认的 `animationFrame` 循环时,  在`animationFrame`循环间隔中检测到的手势 都会被存贮起来,并在下一个间隔中删除. 这意味着传进你的手势侦听函数的帧对象并不一定总是那个侦听到了手势的帧对象. 手和手指的位置还有其他物理信息如果能形成一个手势则在帧与帧的变化中一定能检测到.在某些情况下, 有着相同ID的手或者其他指向性的对象如果被检测出来手势,这些相同ID的对象可能不会在所有帧里都被传入到你的回调函数中.
 
     var controller = new Leap.Controller({enableGestures:true});
     controller.connect();
